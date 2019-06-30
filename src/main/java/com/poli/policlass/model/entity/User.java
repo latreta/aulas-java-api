@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.poli.policlass.model.dto.UserDTO;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +35,7 @@ public class User implements UserDetails {
 	private String password;
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private Date birthdate;
+	@Column(name = "activated")
 	private boolean isActivated;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "profile_id"))
@@ -42,10 +45,13 @@ public class User implements UserDetails {
 
 	}
 
-	public User(Long id, String name, Date birthdate) {
+	public User(Long id, String name, String email, String password, Date birthdate, boolean status) {
 		this.id = id;
 		this.name = name;
 		this.birthdate = birthdate;
+		this.email = email;
+		this.password = password;
+		this.isActivated = status;
 	}
 
 	public Long getId() {
@@ -125,6 +131,16 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return this.isActivated;
+	}
+
+	public UserDTO generateDTO() {
+		UserDTO user = new UserDTO();
+		user.setId(id);
+		user.setEmail(email);
+		user.setName(name);
+		user.setBirthdate(birthdate);
+		user.setPassword(password);
+		return user;
 	}
 
 }

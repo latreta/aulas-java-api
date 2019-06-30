@@ -1,10 +1,15 @@
 package com.poli.policlass.controller;
 
 import java.net.URI;
+import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,11 +27,31 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@PostMapping
-	public ResponseEntity<UserDTO> cadastrar(@RequestBody UserDTO user, UriComponentsBuilder uriBuilder) {
-		User saved = user.generateUserDTO();
-		userRepository.save(saved);
-		URI uri = uriBuilder.path("/{id}").buildAndExpand(saved.getId()).toUri();
-		return ResponseEntity.created(uri).body(user);
+	public ResponseEntity<UserDTO> cadastrar(@RequestBody UserDTO userDTO, UriComponentsBuilder uriBuilder) {
+		User salvo = userDTO.generateUser();
+		userRepository.save(salvo);
+		URI uri = uriBuilder.path("/{id}").buildAndExpand(salvo.getId()).toUri();
+		return ResponseEntity.created(uri).body(salvo.generateDTO());
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<UserDTO> atualizar(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+		Optional<User> resultado = userRepository.findById(id);
+
+		if (resultado.isPresent()) {
+			User user = userDTO.generateUser();
+			User salvo = resultado.get();
+			BeanUtils.copyProperties(user, salvo, "id", "email");
+			userRepository.save(salvo);
+			return ResponseEntity.ok().body(salvo.generateDTO());
+		}
+		return ResponseEntity.badRequest().build();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> detalhar(@PathVariable Long id) {
+		User salvo = userRepository.findById(id).get();
+		return ResponseEntity.ok().body(salvo.generateDTO());
 	}
 
 }

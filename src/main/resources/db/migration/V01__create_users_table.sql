@@ -4,5 +4,5 @@ CREATE TABLE users (
 	email VARCHAR(100) UNIQUE NOT NULL,
 	password VARCHAR(600) NOT NULL,
 	birthdate DATE NOT NULL,
-	isActivated boolean DEFAULT false	
+	activated boolean DEFAULT false	
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
