@@ -30,7 +30,7 @@ public class UserController {
 	public ResponseEntity<UserDTO> cadastrar(@RequestBody UserDTO userDTO, UriComponentsBuilder uriBuilder) {
 		User salvo = userDTO.generateUser();
 		userRepository.save(salvo);
-		URI uri = uriBuilder.path("/{id}").buildAndExpand(salvo.getId()).toUri();
+		URI uri = uriBuilder.path("users/{id}").buildAndExpand(salvo.getId()).toUri();
 		return ResponseEntity.created(uri).body(salvo.generateDTO());
 	}
 
