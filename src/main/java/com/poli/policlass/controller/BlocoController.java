@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,35 +11,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.poli.policlass.model.entity.Docente;
-import com.poli.policlass.repository.DocenteRepository;
+import com.poli.policlass.model.entity.Bloco;
+import com.poli.policlass.repository.BlocoRepository;
 
 @RestController
-@RequestMapping("/docentes")
-public class DocenteController {
+@RequestMapping("/blocos")
+public class BlocoController {
 
 	@Autowired
-	private DocenteRepository docenteRepository;
+	private BlocoRepository blocoRepository;
 
 	@GetMapping
-	public List<Docente> listar() {
-		return docenteRepository.findAll();
+	public ResponseEntity<List<Bloco>> listar() {
+		return ResponseEntity.ok().body(blocoRepository.findAll());
 	}
 
 	@PostMapping
-	public ResponseEntity<Docente> cadastrar(@RequestBody Docente docente, UriComponentsBuilder uriBuilder) {
-		docenteRepository.save(docente);
-		URI uri = uriBuilder.path("/docentes/{id}").buildAndExpand(docente.getId()).toUri();
-		return ResponseEntity.created(uri).body(docente);
+	public ResponseEntity<Bloco> cadastrar(@RequestBody Bloco bloco, UriComponentsBuilder uriBuilder) {
+		blocoRepository.save(bloco);
+		URI uri = uriBuilder.path("/blocos/{id}").buildAndExpand(bloco.getId().toString()).toUri();
+		return ResponseEntity.created(uri).body(bloco);
 	}
 
 	@DeleteMapping("/{id}")
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
-		docenteRepository.deleteById(id);
+		blocoRepository.deleteById(id);
 	}
 }

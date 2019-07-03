@@ -5,4 +5,5 @@ CREATE TABLE profiles (
 
 INSERT INTO profiles (id, description) VALUES (0, 'ROLE_ADMIN');
 INSERT INTO profiles (id, description) VALUES (11, 'ROLE_FUNCIONARIO');
-INSERT INTO profiles (id, description) VALUES (12, 'ROLE_ALUNO');
+INSERT INTO profiles (id, description) VALUES (12, 'ROLE_PROFESSOR');
+INSERT INTO profiles (id, description) VALUES (13, 'ROLE_ALUNO');

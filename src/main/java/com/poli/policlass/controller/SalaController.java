@@ -16,31 +16,32 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.poli.policlass.model.entity.Docente;
-import com.poli.policlass.repository.DocenteRepository;
+import com.poli.policlass.model.entity.Sala;
+import com.poli.policlass.repository.SalaRepository;
 
 @RestController
-@RequestMapping("/docentes")
-public class DocenteController {
+@RequestMapping("/salas")
+public class SalaController {
 
 	@Autowired
-	private DocenteRepository docenteRepository;
+	private SalaRepository salaRepository;
 
 	@GetMapping
-	public List<Docente> listar() {
-		return docenteRepository.findAll();
+	public List<Sala> listar() {
+		return salaRepository.findAll();
 	}
 
 	@PostMapping
-	public ResponseEntity<Docente> cadastrar(@RequestBody Docente docente, UriComponentsBuilder uriBuilder) {
-		docenteRepository.save(docente);
-		URI uri = uriBuilder.path("/docentes/{id}").buildAndExpand(docente.getId()).toUri();
-		return ResponseEntity.created(uri).body(docente);
+	public ResponseEntity<Sala> cadastrar(@RequestBody Sala sala, UriComponentsBuilder uriBuilder) {
+		salaRepository.save(sala);
+		URI uri = uriBuilder.path("/salas/{id}").buildAndExpand(sala.getId().toString()).toUri();
+		return ResponseEntity.created(uri).body(sala);
 	}
 
 	@DeleteMapping("/{id}")
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
-		docenteRepository.deleteById(id);
+		salaRepository.deleteById(id);
 	}
+
 }
