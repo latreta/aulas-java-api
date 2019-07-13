@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
@@ -62,8 +63,8 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
-	public boolean isActivated() {
-		return isActivated;
+	public int isActivated() {
+		return isActivated ? 1 : 0;
 	}
 
 	public void setActivated(boolean isActivated) {
@@ -92,7 +93,7 @@ public class User implements UserDetails {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 
 	public Date getBirthdate() {

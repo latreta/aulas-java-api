@@ -62,7 +62,7 @@ public class TokenService {
 		return token.substring(7);
 	}
 
-	public Long recuperarUserIdFromRequest(HttpServletRequest request) {
+	public Long retrieveUserIDFromRequest(HttpServletRequest request) {
 		return getUserID(retrieveToken(request));
 	}
 

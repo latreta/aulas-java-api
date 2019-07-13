@@ -18,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.poli.policlass.model.entity.Sala;
 import com.poli.policlass.repository.SalaRepository;
+import com.poli.policlass.service.BlocoService;
 
 @RestController
 @RequestMapping("/salas")
@@ -25,6 +26,8 @@ public class SalaController {
 
 	@Autowired
 	private SalaRepository salaRepository;
+	@Autowired
+	private BlocoService blocoService;
 
 	@GetMapping
 	public List<Sala> listar() {
@@ -33,9 +36,12 @@ public class SalaController {
 
 	@PostMapping
 	public ResponseEntity<Sala> cadastrar(@RequestBody Sala sala, UriComponentsBuilder uriBuilder) {
-		salaRepository.save(sala);
-		URI uri = uriBuilder.path("/salas/{id}").buildAndExpand(sala.getId().toString()).toUri();
-		return ResponseEntity.created(uri).body(sala);
+		if (sala.getBloco() != null && blocoService.existeBloco(sala.getBloco().getId())) {
+			salaRepository.save(sala);
+			URI uri = uriBuilder.path("/salas/{id}").buildAndExpand(sala.getId().toString()).toUri();
+			return ResponseEntity.created(uri).body(sala);
+		}
+		return ResponseEntity.badRequest().build();
 	}
 
 	@DeleteMapping("/{id}")

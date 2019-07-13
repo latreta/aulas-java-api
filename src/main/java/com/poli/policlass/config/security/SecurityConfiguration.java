@@ -22,9 +22,9 @@ import com.poli.policlass.repository.UserRepository;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private TokenService tokenService;
-	@Autowired
 	private AuthenticationService authService;
+	@Autowired
+	private TokenService tokenService;
 	@Autowired
 	private UserRepository userRepository;
 
@@ -36,7 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
 		auth.userDetailsService(authService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
@@ -49,6 +48,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		super.configure(web);
 	}
 }

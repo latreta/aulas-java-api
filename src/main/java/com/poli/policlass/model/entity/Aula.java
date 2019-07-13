@@ -25,6 +25,9 @@ public class Aula {
 	@JoinColumn(name = "sala_id")
 	private Sala sala;
 
+	private String inicio;
+	private String fim;
+
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +58,22 @@ public class Aula {
 
 	public void setSala(Sala sala) {
 		this.sala = sala;
+	}
+
+	public String getInicio() {
+		return inicio;
+	}
+
+	public void setInicio(String inicio) {
+		this.inicio = inicio;
+	}
+
+	public String getFim() {
+		return fim;
+	}
+
+	public void setFim(String fim) {
+		this.fim = fim;
 	}
 
 }
