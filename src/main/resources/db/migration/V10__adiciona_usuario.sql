@@ -1,0 +1,2 @@
+INSERT INTO users (id, name, sexo, email, password, birthdate, rua, numero, bairro, cidade, cep, estado, complemento, activated) VALUES (1, 'Administrador', '0','admin@admin.com', '$2a$10$loB95HCFCYTYwmahRzjtbuSuVev7SM/7wpeBxBwK7htF84va8gz5m', '2019-07-01', 'Rua Benfica', '455', 'Madalena', 'Recife', '50720001', 'Pernambuco', 'Escola Politecnica de Pernambuco', '1');
+INSERT INTO users_profiles (user_id, profile_id) VALUES ('1', '1');

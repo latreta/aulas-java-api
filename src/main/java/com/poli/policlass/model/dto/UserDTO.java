@@ -10,8 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.poli.policlass.model.entity.User;
+import com.poli.policlass.model.entity.common.Endereco;
 
-public class UserDTO {
+public class UserDTO implements DTO<User> {
 	private Long id;
 	private String name;
 	private String email;
@@ -21,6 +22,15 @@ public class UserDTO {
 	private Date birthdate;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private boolean activated;
+	private Endereco endereco;
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public Long getId() {
 		return id;
@@ -54,11 +64,6 @@ public class UserDTO {
 		this.birthdate = birthdate;
 	}
 
-	public User generateUser() {
-		User user = new User(this.id, this.name, this.email, this.password, this.birthdate, this.activated);
-		return user;
-	}
-
 	@JsonIgnore
 	public String getPassword() {
 		return password;
@@ -75,6 +80,12 @@ public class UserDTO {
 
 	public void setActivated(boolean activated) {
 		this.activated = activated;
+	}
+
+	@Override
+	public User convert() {
+		User user = new User(this.id, this.name, this.email, this.password, this.birthdate, this.activated);
+		return user;
 	}
 
 }

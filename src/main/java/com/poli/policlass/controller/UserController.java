@@ -28,7 +28,7 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<UserDTO> cadastrar(@RequestBody UserDTO userDTO, UriComponentsBuilder uriBuilder) {
-		User salvo = userDTO.generateUser();
+		User salvo = userDTO.convert();
 		userRepository.save(salvo);
 		URI uri = uriBuilder.path("users/{id}").buildAndExpand(salvo.getId()).toUri();
 		return ResponseEntity.created(uri).body(salvo.generateDTO());
@@ -39,7 +39,7 @@ public class UserController {
 		Optional<User> resultado = userRepository.findById(id);
 
 		if (resultado.isPresent()) {
-			User user = userDTO.generateUser();
+			User user = userDTO.convert();
 			User salvo = resultado.get();
 			BeanUtils.copyProperties(user, salvo, "id", "email");
 			userRepository.save(salvo);

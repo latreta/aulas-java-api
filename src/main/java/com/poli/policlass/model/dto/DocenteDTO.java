@@ -1,5 +1,12 @@
 package com.poli.policlass.model.dto;
 
-public class DocenteDTO {
+import com.poli.policlass.model.entity.Docente;
+
+public class DocenteDTO implements DTO<Docente> {
+
+	@Override
+	public Docente convert() {
+		return null;
+	}
 
 }
