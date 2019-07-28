@@ -27,9 +27,9 @@ public class TokenService {
 
 		Date hoje = new Date();
 		Date dataExpiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
-
-		String token = Jwts.builder().setIssuer("API").setSubject(logado.getId().toString()).setIssuedAt(hoje)
-				.setExpiration(dataExpiracao).signWith(SignatureAlgorithm.HS512, secret).compact();
+		String token = Jwts.builder().setIssuer("API").claim("name", logado.getName().toString())
+				.setSubject(logado.getId().toString()).setIssuedAt(hoje).setExpiration(dataExpiracao)
+				.signWith(SignatureAlgorithm.HS512, secret).compact();
 
 		return token;
 	}

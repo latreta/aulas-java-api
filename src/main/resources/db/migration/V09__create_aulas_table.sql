@@ -7,6 +7,6 @@ CREATE TABLE aulas (
 	inicio VARCHAR(6) NOT NULL,
 	fim VARCHAR(6) NOT NULL,
 	FOREIGN KEY (cadeira_id) REFERENCES cadeiras(id),
-	FOREIGN KEY (professor_id) REFERENCES docentes(id),
+	FOREIGN KEY (professor_id) REFERENCES discentes(id),
 	FOREIGN KEY (sala_id) REFERENCES salas(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
