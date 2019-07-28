@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.poli.policlass.model.entity.Docente;
+import com.poli.policlass.model.entity.Discente;
 import com.poli.policlass.repository.DocenteRepository;
 
 @RestController
@@ -27,12 +27,12 @@ public class DocenteController {
 	private DocenteRepository docenteRepository;
 
 	@GetMapping
-	public List<Docente> listar() {
+	public List<Discente> listar() {
 		return docenteRepository.findAll();
 	}
 
 	@PostMapping
-	public ResponseEntity<Docente> cadastrar(@RequestBody Docente docente, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<Discente> cadastrar(@RequestBody Discente docente, UriComponentsBuilder uriBuilder) {
 		docenteRepository.save(docente);
 		URI uri = uriBuilder.path("/docentes/{id}").buildAndExpand(docente.getId()).toUri();
 		return ResponseEntity.created(uri).body(docente);

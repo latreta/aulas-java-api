@@ -1,11 +1,11 @@
 package com.poli.policlass.model.dto;
 
-import com.poli.policlass.model.entity.Docente;
+import com.poli.policlass.model.entity.Discente;
 
-public class DocenteDTO implements DTO<Docente> {
+public class DocenteDTO implements DTO<Discente> {
 
 	@Override
-	public Docente convert() {
+	public Discente convert() {
 		return null;
 	}
 
