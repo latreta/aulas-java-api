@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "aulas")
@@ -24,7 +25,8 @@ public class Aula {
 	@OneToOne
 	@JoinColumn(name = "sala_id")
 	private Sala sala;
-
+	@NotNull
+	private String turma;
 	private String inicio;
 	private String fim;
 
@@ -74,6 +76,14 @@ public class Aula {
 
 	public void setFim(String fim) {
 		this.fim = fim;
+	}
+
+	public String getTurma() {
+		return turma;
+	}
+
+	public void setTurma(String turma) {
+		this.turma = turma;
 	}
 
 }
