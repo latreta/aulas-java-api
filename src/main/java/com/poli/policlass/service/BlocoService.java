@@ -29,10 +29,6 @@ public class BlocoService {
 		return blocoRepository.findById(id).isPresent();
 	}
 
-	/*
-	 * TODO: Implementar a lógica para remoção de todos os elementos com o mesmo
-	 * bloco para evitar erros
-	 */
 	@Transactional
 	public void removerBloco(Bloco bloco) {
 		salaRepository.deleteByBloco_Id(bloco.getId());
