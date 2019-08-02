@@ -10,6 +10,14 @@ public class TelefonePrimario {
 	@Column(name = "tel_1")
 	private String numeroPrincipal;
 
+	public TelefonePrimario() {
+	}
+
+	public TelefonePrimario(String ddd, String telefone) {
+		this.ddd1 = ddd;
+		this.numeroPrincipal = telefone;
+	}
+
 	public String getDdd1() {
 		return ddd1;
 	}

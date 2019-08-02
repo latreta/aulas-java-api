@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.User;
+import com.poli.policlass.model.form.CadastroForm;
 import com.poli.policlass.repository.UserRepository;
 
 @RestController
@@ -27,8 +28,8 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@PostMapping
-	public ResponseEntity<UserDTO> cadastrar(@RequestBody UserDTO userDTO, UriComponentsBuilder uriBuilder) {
-		User salvo = userDTO.convert();
+	public ResponseEntity<?> cadastrar(@RequestBody CadastroForm form, UriComponentsBuilder uriBuilder) {
+		User salvo = form.convert();
 		userRepository.save(salvo);
 		URI uri = uriBuilder.path("users/{id}").buildAndExpand(salvo.getId()).toUri();
 		return ResponseEntity.created(uri).body(salvo.generateDTO());

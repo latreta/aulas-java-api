@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.poli.policlass.model.entity.User;
 import com.poli.policlass.model.entity.common.Endereco;
+import com.poli.policlass.model.entity.common.TelefonePrimario;
+import com.poli.policlass.model.entity.common.TelefoneSecundario;
 
 public class UserDTO implements DTO<User> {
 	private Long id;
@@ -23,6 +25,24 @@ public class UserDTO implements DTO<User> {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private boolean activated;
 	private Endereco endereco;
+	private TelefonePrimario primario;
+	private TelefoneSecundario secundario;
+
+	public TelefonePrimario getPrimario() {
+		return primario;
+	}
+
+	public void setPrimario(TelefonePrimario primario) {
+		this.primario = primario;
+	}
+
+	public TelefoneSecundario getSecundario() {
+		return secundario;
+	}
+
+	public void setSecundario(TelefoneSecundario secundario) {
+		this.secundario = secundario;
+	}
 
 	public Endereco getEndereco() {
 		return endereco;

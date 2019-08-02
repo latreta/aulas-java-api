@@ -1,8 +1,9 @@
 CREATE TABLE users (
 	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(200) NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
 	email VARCHAR(100) UNIQUE NOT NULL,
-	sexo ENUM('0','1') NOT NULL,
+	sexo ENUM('MASCULINO','FEMININO') NOT NULL,
 	password VARCHAR(600) NOT NULL,
 	birthdate DATE NOT NULL,
 	rua VARCHAR(100) NOT NULL,
@@ -11,6 +12,10 @@ CREATE TABLE users (
 	cidade VARCHAR(30) NOT NULL,
 	cep VARCHAR(12) NOT NULL,
 	estado VARCHAR(30) NOT NULL,
-	complemento VARCHAR(150) NOT NULL,
-	activated boolean DEFAULT false	
+	complemento VARCHAR(150),
+	activated boolean DEFAULT false,
+	ddd_1 VARCHAR(3) NOT NULL,
+	tel_1 VARCHAR(10) NOT NULL,
+	ddd_2 VARCHAR(3),
+	tel_2 VARCHAR(10)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

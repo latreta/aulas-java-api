@@ -29,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.common.Endereco;
 import com.poli.policlass.model.entity.common.SEXO;
+import com.poli.policlass.model.entity.common.TelefonePrimario;
+import com.poli.policlass.model.entity.common.TelefoneSecundario;
 
 @Entity
 @Table(name = "users")
@@ -39,7 +41,9 @@ public class User implements UserDetails {
 	private Long id;
 	@NotNull
 	private String name;
-	@Enumerated(value = EnumType.ORDINAL)
+	@NotNull
+	private String lastName;
+	@Enumerated(value = EnumType.STRING)
 	private SEXO sexo;
 	private String email;
 	@NotNull
@@ -53,6 +57,10 @@ public class User implements UserDetails {
 	private List<Profile> profiles = new ArrayList<>();
 	@Embedded
 	private Endereco endereco;
+	@Embedded
+	private TelefonePrimario primario;
+	@Embedded
+	private TelefoneSecundario secundario;
 
 	public User() {
 
@@ -105,6 +113,14 @@ public class User implements UserDetails {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -170,6 +186,8 @@ public class User implements UserDetails {
 		user.setBirthdate(birthdate);
 		user.setPassword(password);
 		user.setEndereco(endereco);
+		user.setPrimario(primario);
+		user.setSecundario(secundario);
 		return user;
 	}
 
@@ -181,4 +199,19 @@ public class User implements UserDetails {
 		this.endereco = endereco;
 	}
 
+	public TelefonePrimario getPrimario() {
+		return primario;
+	}
+
+	public void setPrimario(TelefonePrimario primario) {
+		this.primario = primario;
+	}
+
+	public TelefoneSecundario getSecundario() {
+		return secundario;
+	}
+
+	public void setSecundario(TelefoneSecundario secundario) {
+		this.secundario = secundario;
+	}
 }

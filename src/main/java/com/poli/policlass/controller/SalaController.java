@@ -3,6 +3,8 @@ package com.poli.policlass.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,9 @@ public class SalaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Sala> cadastrar(@RequestBody Sala sala, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<Sala> cadastrar(@RequestBody Sala sala, UriComponentsBuilder uriBuilder,
+			HttpServletRequest request) {
+//		request.isUserInRole("ROLE_ADMIN");
 		if (sala.getBloco() != null && blocoService.existeBloco(sala.getBloco().getId())) {
 			salaRepository.save(sala);
 			URI uri = uriBuilder.path("/salas/{id}").buildAndExpand(sala.getId().toString()).toUri();
