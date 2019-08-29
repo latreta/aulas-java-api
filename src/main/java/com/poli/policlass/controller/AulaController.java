@@ -27,8 +27,8 @@ public class AulaController {
 	private AulaRepository aulaRepository;
 
 	@GetMapping
-	public List<Aula> listar() {
-		return aulaRepository.findAll();
+	public ResponseEntity<List<Aula>> listar() {
+		return ResponseEntity.ok(aulaRepository.findAll());
 	}
 
 	@PostMapping

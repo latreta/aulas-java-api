@@ -21,7 +21,7 @@ public class Aula {
 	private Cadeira cadeira;
 	@OneToOne
 	@JoinColumn(name = "professor_id")
-	private Discente professor;
+	private Discente discente;
 	@OneToOne
 	@JoinColumn(name = "sala_id")
 	private Sala sala;
@@ -46,12 +46,12 @@ public class Aula {
 		this.cadeira = cadeira;
 	}
 
-	public Discente getProfessor() {
-		return professor;
+	public Discente getDiscente() {
+		return discente;
 	}
 
-	public void setProfessor(Discente professor) {
-		this.professor = professor;
+	public void setDiscente(Discente discente) {
+		this.discente = discente;
 	}
 
 	public Sala getSala() {

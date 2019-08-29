@@ -15,11 +15,11 @@ import com.poli.policlass.model.entity.common.TelefonePrimario;
 import com.poli.policlass.model.entity.common.TelefoneSecundario;
 
 public class CadastroForm implements DTO<User> {
-	private String name;
+	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
 	private Date birthdate;
 	@Enumerated(value = EnumType.STRING)
 	private SEXO sexo;
@@ -36,12 +36,12 @@ public class CadastroForm implements DTO<User> {
 	private String state;
 	private String complement;
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String name) {
+		this.firstName = name;
 	}
 
 	public String getLastName() {
@@ -176,7 +176,7 @@ public class CadastroForm implements DTO<User> {
 	public User convert() {
 		User user = new User();
 		user.setEmail(email);
-		user.setName(name);
+		user.setName(firstName);
 		user.setLastName(lastName);
 		user.setPassword(password);
 		user.setBirthdate(birthdate);
