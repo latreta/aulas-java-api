@@ -3,8 +3,11 @@ package com.poli.policlass.controller;
 import java.net.URI;
 import java.util.Optional;
 
+import com.poli.policlass.event.RecursoCriadoEvent;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,8 @@ import com.poli.policlass.model.entity.User;
 import com.poli.policlass.model.form.CadastroForm;
 import com.poli.policlass.repository.UserRepository;
 
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -27,12 +32,15 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private ApplicationEventPublisher eventPublisher;
+
 	@PostMapping
-	public ResponseEntity<UserDTO> cadastrar(@RequestBody CadastroForm form, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<UserDTO> cadastrar(@RequestBody CadastroForm form, HttpServletResponse response) {
 		User salvo = form.convert();
 		userRepository.save(salvo);
-		URI uri = uriBuilder.path("users/{id}").buildAndExpand(salvo.getId()).toUri();
-		return ResponseEntity.created(uri).body(salvo.generateDTO());
+		eventPublisher.publishEvent(new RecursoCriadoEvent(this, response, salvo.getId()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(salvo.generateDTO());
 	}
 
 	@PutMapping("/{id}")

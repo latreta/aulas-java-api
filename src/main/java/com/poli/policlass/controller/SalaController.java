@@ -4,18 +4,16 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import com.poli.policlass.event.RecursoCriadoEvent;
+import com.poli.policlass.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.poli.policlass.model.entity.Sala;
@@ -27,31 +25,39 @@ import com.poli.policlass.service.BlocoService;
 public class SalaController {
 
 	@Autowired
-	private SalaRepository salaRepository;
+	private SalaService salaService;
+
+
 	@Autowired
-	private BlocoService blocoService;
+	private ApplicationEventPublisher eventPublisher;
 
 	@GetMapping
-	public List<Sala> listar() {
-		return salaRepository.findAll();
+	public ResponseEntity<List<Sala>> listar() {
+		return ResponseEntity.ok(salaService.listarSalas());
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Sala> detalhar(@PathVariable Long id){
+		return ResponseEntity.ok(salaService.buscarPorID(id));
+	}
+
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizar(@PathVariable Long id, @RequestBody @Valid Sala sala){
+		salaService.atualizarSala(id, sala);
 	}
 
 	@PostMapping
-	public ResponseEntity<Sala> cadastrar(@RequestBody Sala sala, UriComponentsBuilder uriBuilder,
-			HttpServletRequest request) {
-//		request.isUserInRole("ROLE_ADMIN");
-		if (sala.getBloco() != null && blocoService.existeBloco(sala.getBloco().getId())) {
-			salaRepository.save(sala);
-			URI uri = uriBuilder.path("/salas/{id}").buildAndExpand(sala.getId().toString()).toUri();
-			return ResponseEntity.created(uri).body(sala);
-		}
-		return ResponseEntity.badRequest().build();
+	public ResponseEntity<Sala> cadastrar(@RequestBody @Valid Sala sala, HttpServletResponse response) {
+		Sala salvo = salaService.cadastrar(sala);
+		eventPublisher.publishEvent(new RecursoCriadoEvent(this,response,salvo.getId()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(sala);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long id) {
-		salaRepository.deleteById(id);
+		salaService.removerSala(id);
 	}
 
 }

@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.poli.policlass.model.entity.Bloco;
@@ -19,7 +21,7 @@ public class BlocoService {
 	private BlocoRepository blocoRepository;
 
 	@Autowired
-	private SalaRepository salaRepository;
+	private SalaService salaService;
 
 	public List<Bloco> listarTodos() {
 		return blocoRepository.findAll();
@@ -30,13 +32,29 @@ public class BlocoService {
 	}
 
 	@Transactional
-	public void removerBloco(Bloco bloco) {
-		salaRepository.deleteByBloco_Id(bloco.getId());
-		blocoRepository.deleteById(bloco.getId());
+	public boolean removerBloco(Long id) {
+		Bloco salvo = buscarPorID(id);
+		if(salvo != null){
+			salaService.removerPorBloco(id);
+			blocoRepository.deleteById(id);
+			return true;
+		}
+		return false;
 	}
 
-	public void cadastrar(Bloco bloco) {
-		blocoRepository.save(bloco);
+	@Transactional
+	public boolean atualizarBloco(Long id, Bloco bloco){
+		Bloco salvo = buscarPorID(id);
+		if (salvo != null) {
+			BeanUtils.copyProperties(bloco, salvo, "id");
+			blocoRepository.save(salvo);
+			return true;
+		}
+		return false;
+	}
+
+	public Bloco cadastrar(Bloco bloco) {
+		return blocoRepository.save(bloco);
 	}
 
 	public Bloco buscarPorID(Long id) {

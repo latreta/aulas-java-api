@@ -6,4 +6,5 @@ import com.poli.policlass.model.entity.Aula;
 
 public interface AulaRepository extends JpaRepository<Aula, Long> {
 
+    void deleteBySala_Id(Long id);
 }
