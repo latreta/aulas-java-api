@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "policlass",
+      "type": "com.poli.policlass.config.property.PoliclassApiProperty",
+      "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty"
+    },
+    {
+      "name": "policlass.seguranca",
+      "type": "com.poli.policlass.config.property.PoliclassApiProperty$Seguranca",
+      "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty",
+      "sourceMethod": "getSeguranca()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "policlass.origin-permitida",
+      "type": "java.lang.String",
+      "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty",
+      "defaultValue": "http:\/\/localhost:4200"
+    },
+    {
+      "name": "policlass.seguranca.enable-https",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty$Seguranca",
+      "defaultValue": false
+    }
+  ],
+  "hints": []
+}
