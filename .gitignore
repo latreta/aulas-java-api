@@ -1,5 +1,21 @@
 # Compiled class file
 *.class
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### Intellij IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
 # Log file
 *.log
