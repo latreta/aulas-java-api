@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.poli.policlass.model.entity.ActivationToken;
 
 public interface ActivationTokenRepository extends JpaRepository<ActivationToken, Long> {
-
+    public ActivationToken findByToken(String token);
 }

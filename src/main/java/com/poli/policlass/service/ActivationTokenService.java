@@ -8,25 +8,39 @@ import com.poli.policlass.model.entity.ActivationToken;
 import com.poli.policlass.model.entity.User;
 import com.poli.policlass.repository.ActivationTokenRepository;
 import com.poli.policlass.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ActivationTokenService {
 
 	@Autowired
 	private ActivationTokenRepository activationRepository;
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
-	public void generateActivationToken(Long id) {
-		Optional<User> usuario = userRepository.findById(id);
-		if (usuario.isPresent()) {
-			User salvo = usuario.get();
-			ActivationToken token = new ActivationToken();
-			token.setToken("Teste");
-			token.setUser(salvo);
-			activationRepository.save(token);
-			sendEmail(salvo.getEmail(), token.getToken());
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
+	public void generateActivationToken(User usuario) {
+		ActivationToken token = new ActivationToken();
+		token.setToken(encoder.encode(usuario.getEmail()));
+		token.setUser(usuario);
+		activationRepository.save(token);
+		sendEmail(usuario.getEmail(), token.getToken());
+	}
+
+	public boolean activateToken(Long id, String token){
+		User salvo = userService.buscarPorID(id);
+		salvo.setActivated(true);
+		ActivationToken actToken = activationRepository.findByToken(token);
+		if(salvo != null && actToken != null){
+			if(encoder.matches(salvo.getEmail(), token)){
+				userService.cadastrarUsuario(salvo);
+				return true;
+			}
 		}
-
+		return false;
 	}
 
 	private void sendEmail(String email, String token) {

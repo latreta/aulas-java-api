@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
 		return null;
 	}
 
+	public User cadastrarUsuario(User usuario){
+		return userRepository.save(usuario);
+	}
+
 	public List<User> buscarTodos() {
 		return userRepository.findAll();
 	}

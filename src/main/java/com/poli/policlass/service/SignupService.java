@@ -18,12 +18,16 @@ public class SignupService {
     @Autowired
     private ProfileRepository profileRepository;
 
+    @Autowired
+    private ActivationTokenService activationTokenService;
+
     @Transactional
     public User cadastrar(User usuario){
         User salvo = userRepository.save(usuario);
         Profile perfilAluno = Profile.perfilAluno();
         UserProfile userProfile = new UserProfile(usuario, perfilAluno);
         profileRepository.save(userProfile);
+        activationTokenService.generateActivationToken(salvo);
         return salvo;
     }
 }

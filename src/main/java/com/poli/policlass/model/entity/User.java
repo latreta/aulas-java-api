@@ -20,6 +20,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,7 +38,6 @@ import com.poli.policlass.model.entity.common.TelefoneSecundario;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -47,6 +49,7 @@ public class User implements UserDetails {
 	private SEXO sexo;
 	private String email;
 	@NotNull
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private Date birthdate;
@@ -132,6 +135,7 @@ public class User implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
