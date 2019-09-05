@@ -1,1 +1,2 @@
-web: java -jar -Dserver.port=$PORT target/policlass.war
+
+web: java -Dserver.port=$PORT -Dspring.profiles.active=prod $JAVA_OPTS -jar target/policlass*.jar
