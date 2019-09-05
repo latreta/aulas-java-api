@@ -22,10 +22,7 @@ public class AulaService {
 
     public Aula buscarPorID(Long id){
         Optional<Aula> resultado = aulaRepository.findById(id);
-        if(resultado.isPresent()){
-            return resultado.get();
-        }
-        return null;
+        return resultado.orElse(null);
     }
 
     public Aula cadastrar(Aula aula){

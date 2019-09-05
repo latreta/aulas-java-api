@@ -1,6 +1,5 @@
 package com.poli.policlass.controller;
 
-import java.net.URI;
 import java.util.Optional;
 
 import com.poli.policlass.event.RecursoCriadoEvent;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.User;
-import com.poli.policlass.model.form.CadastroForm;
 import com.poli.policlass.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;

@@ -43,10 +43,7 @@ public class SalaService {
 
     public Sala buscarPorID(Long id){
         Optional<Sala> resultado = salaRepository.findById(id);
-        if(resultado.isPresent()){
-            return resultado.get();
-        }
-        return null;
+        return resultado.orElse(null);
     }
 
     @Transactional

@@ -1,9 +1,7 @@
 package com.poli.policlass.controller;
 
-import java.net.URI;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -14,11 +12,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.poli.policlass.model.entity.Sala;
-import com.poli.policlass.repository.SalaRepository;
-import com.poli.policlass.service.BlocoService;
 
 @RestController
 @RequestMapping("/salas")

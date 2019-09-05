@@ -1,13 +1,10 @@
 package com.poli.policlass.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.poli.policlass.model.entity.ActivationToken;
 import com.poli.policlass.model.entity.User;
 import com.poli.policlass.repository.ActivationTokenRepository;
-import com.poli.policlass.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

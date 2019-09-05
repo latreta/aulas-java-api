@@ -1,18 +1,14 @@
 package com.poli.policlass.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import com.poli.policlass.model.entity.Bloco;
 import com.poli.policlass.repository.BlocoRepository;
-import com.poli.policlass.repository.SalaRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BlocoService {
@@ -59,11 +55,7 @@ public class BlocoService {
 
 	public Bloco buscarPorID(Long id) {
 		Optional<Bloco> bloco = blocoRepository.findById(id);
-		if (bloco.isPresent()) {
-			return bloco.get();
-		} else {
-			return null;
-		}
+		return bloco.orElse(null);
 	}
 
 }

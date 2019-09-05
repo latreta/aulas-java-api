@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.poli.policlass.model.entity.User;
@@ -21,10 +20,7 @@ public class UserService implements UserDetailsService {
 
 	public User buscarPorID(Long id) {
 		Optional<User> usuario = userRepository.findById(id);
-		if (usuario.isPresent()) {
-			return usuario.get();
-		}
-		return null;
+		return usuario.orElse(null);
 	}
 
 	public User cadastrarUsuario(User usuario){
