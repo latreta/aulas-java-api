@@ -179,16 +179,7 @@ public class User implements UserDetails {
 	}
 
 	public UserDTO generateDTO() {
-		UserDTO user = new UserDTO();
-		user.setId(id);
-		user.setEmail(email);
-		user.setName(name);
-		user.setBirthdate(birthdate);
-		user.setPassword(password);
-		user.setEndereco(endereco);
-		user.setPrimario(primario);
-		user.setSecundario(secundario);
-		return user;
+		return null;
 	}
 
 	public Endereco getEndereco() {

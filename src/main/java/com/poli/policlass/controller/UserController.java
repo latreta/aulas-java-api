@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Optional;
 
 import com.poli.policlass.event.RecursoCriadoEvent;
+import com.poli.policlass.service.SignupService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -33,14 +34,16 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@Autowired
+	private SignupService signupService;
+
+	@Autowired
 	private ApplicationEventPublisher eventPublisher;
 
 	@PostMapping
-	public ResponseEntity<UserDTO> cadastrar(@RequestBody CadastroForm form, HttpServletResponse response) {
-		User salvo = form.convert();
-		userRepository.save(salvo);
+	public ResponseEntity<User> cadastrar(@RequestBody User user, HttpServletResponse response) {
+		User salvo = signupService.cadastrar(user);
 		eventPublisher.publishEvent(new RecursoCriadoEvent(this, response, salvo.getId()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(salvo.generateDTO());
+		return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
 	}
 
 	@PutMapping("/{id}")

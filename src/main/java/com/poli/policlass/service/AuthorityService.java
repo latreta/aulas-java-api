@@ -9,6 +9,8 @@ import com.poli.policlass.model.entity.User;
 @Service
 public class AuthorityService {
 
+
+
 	@Autowired
 	private UserService userService;
 

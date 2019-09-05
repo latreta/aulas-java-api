@@ -38,4 +38,11 @@ public class Profile implements GrantedAuthority {
 		this.description = description;
 	}
 
+	public static Profile perfilAluno(){
+		Profile perfil = new Profile();
+		perfil.setId(13L);
+		perfil.setDescription("ROLE_ALUNO");
+		return perfil;
+	}
+
 }
