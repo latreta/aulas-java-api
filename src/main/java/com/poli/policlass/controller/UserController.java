@@ -1,27 +1,20 @@
 package com.poli.policlass.controller;
 
-import java.util.Optional;
-
 import com.poli.policlass.event.RecursoCriadoEvent;
+import com.poli.policlass.model.dto.UserDTO;
+import com.poli.policlass.model.entity.User;
+import com.poli.policlass.repository.UserRepository;
 import com.poli.policlass.service.SignupService;
+import com.poli.policlass.service.TokenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.poli.policlass.model.dto.UserDTO;
-import com.poli.policlass.model.entity.User;
-import com.poli.policlass.repository.UserRepository;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -32,6 +25,9 @@ public class UserController {
 
 	@Autowired
 	private SignupService signupService;
+
+	@Autowired
+	private TokenService tokenService;
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
@@ -61,6 +57,12 @@ public class UserController {
 	public ResponseEntity<UserDTO> detalhar(@PathVariable Long id) {
 		User salvo = userRepository.findById(id).get();
 		return ResponseEntity.ok().body(salvo.generateDTO());
+	}
+
+	@GetMapping("/token/{token}")
+	public ResponseEntity<?> recuperaDoToken(@PathVariable String token){
+		User user = tokenService.recupera(token);
+		return ResponseEntity.ok().body(user);
 	}
 
 }

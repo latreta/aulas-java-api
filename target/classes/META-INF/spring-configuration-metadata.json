@@ -18,6 +18,12 @@
       "type": "java.lang.String",
       "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty",
       "defaultValue": "http:\/\/localhost:4200"
+    },
+    {
+      "name": "policlass.seguranca.enable-https",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.poli.policlass.config.property.PoliclassApiProperty$Seguranca",
+      "defaultValue": false
     }
   ],
   "hints": []
