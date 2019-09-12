@@ -8,4 +8,5 @@ INSERT INTO blocos (name) VALUES ('B');
 INSERT INTO blocos (name) VALUES ('C');
 INSERT INTO blocos (name) VALUES ('I');
 INSERT INTO blocos (name) VALUES ('J');
+INSERT INTO blocos (name) VALUES ('K');
 INSERT INTO blocos (name) VALUES ('LIP');

@@ -2,8 +2,8 @@ package com.poli.policlass.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.poli.policlass.model.entity.Cadeira;
+import com.poli.policlass.model.entity.Disciplina;
 
-public interface CadeiraRepository extends JpaRepository<Cadeira, Long> {
+public interface CadeiraRepository extends JpaRepository<Disciplina, Long> {
 
 }
