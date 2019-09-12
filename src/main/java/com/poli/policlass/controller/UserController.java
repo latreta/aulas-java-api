@@ -3,10 +3,10 @@ package com.poli.policlass.controller;
 import com.poli.policlass.event.RecursoCriadoEvent;
 import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.User;
+import com.poli.policlass.model.form.AtualizarUsuarioForm;
 import com.poli.policlass.repository.UserRepository;
 import com.poli.policlass.service.SignupService;
 import com.poli.policlass.service.TokenService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -40,16 +39,8 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDTO> atualizar(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-		Optional<User> resultado = userRepository.findById(id);
-
-		if (resultado.isPresent()) {
-			User user = userDTO.convert();
-			User salvo = resultado.get();
-			BeanUtils.copyProperties(user, salvo, "id", "email");
-			userRepository.save(salvo);
-			return ResponseEntity.ok().body(salvo.generateDTO());
-		}
+	public ResponseEntity<AtualizarUsuarioForm> atualizar(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+		// TODO: implementar a forma de validação dos dados para atualização
 		return ResponseEntity.badRequest().build();
 	}
 

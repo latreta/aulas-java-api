@@ -1,38 +1,24 @@
 package com.poli.policlass.model.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.poli.policlass.model.dto.UserDTO;
+import com.poli.policlass.model.entity.common.Endereco;
+import com.poli.policlass.model.entity.common.GENDER;
+import com.poli.policlass.model.entity.common.TelefonePrimario;
+import com.poli.policlass.model.entity.common.TelefoneSecundario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.poli.policlass.model.dto.UserDTO;
-import com.poli.policlass.model.entity.common.Endereco;
-import com.poli.policlass.model.entity.common.SEXO;
-import com.poli.policlass.model.entity.common.TelefonePrimario;
-import com.poli.policlass.model.entity.common.TelefoneSecundario;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -45,7 +31,7 @@ public class User implements UserDetails {
 	@NotNull
 	private String lastName;
 	@Enumerated(value = EnumType.STRING)
-	private SEXO sexo;
+	private GENDER sexo;
 	private String email;
 	@NotNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -93,11 +79,11 @@ public class User implements UserDetails {
 		this.isActivated = isActivated;
 	}
 
-	public SEXO getSexo() {
+	public GENDER getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(SEXO sexo) {
+	public void setSexo(GENDER sexo) {
 		this.sexo = sexo;
 	}
 

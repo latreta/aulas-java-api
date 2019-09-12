@@ -1,11 +1,11 @@
 package com.poli.policlass.model.entity.common;
 
-public enum SEXO {
+public enum GENDER {
 	MASCULINO("MASCULINO"), FEMININO("FEMININO");
 
 	private String valor;
 
-	SEXO(String valor) {
+	GENDER(String valor) {
 		this.setValor(valor);
 	}
 

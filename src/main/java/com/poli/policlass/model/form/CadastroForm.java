@@ -1,18 +1,17 @@
 package com.poli.policlass.model.form;
 
-import java.util.Date;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.poli.policlass.model.dto.DTO;
 import com.poli.policlass.model.entity.User;
 import com.poli.policlass.model.entity.common.Endereco;
-import com.poli.policlass.model.entity.common.SEXO;
+import com.poli.policlass.model.entity.common.GENDER;
 import com.poli.policlass.model.entity.common.TelefonePrimario;
 import com.poli.policlass.model.entity.common.TelefoneSecundario;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.util.Date;
 
 public class CadastroForm implements DTO<User> {
 	private String firstName;
@@ -22,7 +21,7 @@ public class CadastroForm implements DTO<User> {
 	@JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
 	private Date birthdate;
 	@Enumerated(value = EnumType.STRING)
-	private SEXO sexo;
+	private GENDER sexo;
 	private String ddd_1;
 	private String tel_1;
 	private String ddd_2;
@@ -76,11 +75,11 @@ public class CadastroForm implements DTO<User> {
 		this.birthdate = birthdate;
 	}
 
-	public SEXO getSexo() {
+	public GENDER getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(SEXO sexo) {
+	public void setSexo(GENDER sexo) {
 		this.sexo = sexo;
 	}
 
