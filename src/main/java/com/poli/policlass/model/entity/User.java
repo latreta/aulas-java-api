@@ -15,9 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,7 +37,7 @@ public class User implements UserDetails {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
-	private Date birthdate;
+	private LocalDate birthdate;
 	@Column(name = "activated")
 	private boolean isActivated;
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -54,7 +54,7 @@ public class User implements UserDetails {
 
 	}
 
-	public User(Long id, String name, String email, String password, Date birthdate, boolean status) {
+	public User(Long id, String name, String email, String password, LocalDate birthdate, boolean status) {
 		this.id = id;
 		this.name = name;
 		this.birthdate = birthdate;
@@ -129,11 +129,11 @@ public class User implements UserDetails {
 		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/discentes")
@@ -21,6 +22,17 @@ public class DiscenteController {
 	@GetMapping
 	public List<Discente> listar() {
 		return docenteRepository.findAll();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Discente> detalhar(@PathVariable Long id){
+		Optional<Discente> resultado = docenteRepository.findById(id);
+		if(resultado.isPresent()){
+			Discente discente = resultado.get();
+			return ResponseEntity.ok(discente);
+		}
+
+		return ResponseEntity.badRequest().build();
 	}
 
 	@PostMapping

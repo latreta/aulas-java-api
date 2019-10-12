@@ -11,7 +11,7 @@ import com.poli.policlass.model.entity.common.TelefoneSecundario;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class CadastroForm implements DTO<User> {
 	private String firstName;
@@ -19,7 +19,7 @@ public class CadastroForm implements DTO<User> {
 	private String email;
 	private String password;
 	@JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
-	private Date birthdate;
+	private LocalDate birthdate;
 	@Enumerated(value = EnumType.STRING)
 	private GENDER sexo;
 	private String ddd_1;
@@ -67,11 +67,11 @@ public class CadastroForm implements DTO<User> {
 		this.password = password;
 	}
 
-	public Date getBirthdate() {
+	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(Date birthdate) {
+	public void setBirthdate(LocalDate birthdate) {
 		this.birthdate = birthdate;
 	}
 

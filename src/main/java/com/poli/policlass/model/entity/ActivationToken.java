@@ -1,11 +1,7 @@
 package com.poli.policlass.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class ActivationToken {
@@ -16,6 +12,7 @@ public class ActivationToken {
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
+	private LocalDate createdAt;
 
 	public Long getId() {
 		return id;
@@ -41,4 +38,11 @@ public class ActivationToken {
 		this.user = user;
 	}
 
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
 }

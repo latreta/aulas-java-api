@@ -2,6 +2,7 @@ package com.poli.policlass.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "aulas")
@@ -22,6 +23,9 @@ public class Aula {
 	private String turma;
 	private String inicio;
 	private String fim;
+
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 
 	public Long getId() {
 		return id;
@@ -77,5 +81,21 @@ public class Aula {
 
 	public void setFim(String fim) {
 		this.fim = fim;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }

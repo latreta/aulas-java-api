@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "salas")
@@ -19,6 +20,9 @@ public class Sala {
 	@OneToOne
 	@JoinColumn(name = "block_id")
 	private Bloco bloco;
+
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 
 	public Long getId() {
 		return id;
@@ -44,4 +48,19 @@ public class Sala {
 		this.bloco = bloco;
 	}
 
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 }
