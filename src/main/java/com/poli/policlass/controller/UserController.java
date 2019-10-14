@@ -7,6 +7,7 @@ import com.poli.policlass.model.form.AtualizarUsuarioForm;
 import com.poli.policlass.repository.UserRepository;
 import com.poli.policlass.service.SignupService;
 import com.poli.policlass.service.TokenService;
+import com.poli.policlass.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	private UserService userService;
 
 	@Autowired
 	private SignupService signupService;
@@ -46,7 +48,7 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> detalhar(@PathVariable Long id) {
-		User salvo = userRepository.findById(id).get();
+		User salvo = userService.buscarPorID(id);
 		return ResponseEntity.ok().body(salvo.generateDTO());
 	}
 

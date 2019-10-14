@@ -21,11 +21,14 @@ public class Aula {
 	private Sala sala;
 	@NotNull
 	private String turma;
-	private String inicio;
+	private LocalDate inicio;
 	private String fim;
 
 	private LocalDate createdAt;
 	private LocalDate updatedAt;
+
+	public Aula() {
+	}
 
 	public Long getId() {
 		return id;
@@ -67,12 +70,8 @@ public class Aula {
 		this.turma = turma;
 	}
 
-	public String getInicio() {
+	public LocalDate getInicio() {
 		return inicio;
-	}
-
-	public void setInicio(String inicio) {
-		this.inicio = inicio;
 	}
 
 	public String getFim() {
