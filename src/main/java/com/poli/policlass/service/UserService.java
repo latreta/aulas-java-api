@@ -15,7 +15,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository<User> userRepository;
 
 	public User buscarPorID(Long id) {
 		Optional<User> usuario = userRepository.findById(id);

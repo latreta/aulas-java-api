@@ -22,6 +22,7 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
 	private UserService userService;
 
 	@Autowired
@@ -47,9 +48,9 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDTO> detalhar(@PathVariable Long id) {
+	public ResponseEntity<User> detalhar(@PathVariable Long id) {
 		User salvo = userService.buscarPorID(id);
-		return ResponseEntity.ok().body(salvo.generateDTO());
+		return ResponseEntity.ok().body(salvo);
 	}
 
 	@GetMapping("/token/{token}")

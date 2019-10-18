@@ -1,11 +1,10 @@
 package com.poli.policlass.repository;
 
-import java.util.Optional;
-
+import com.poli.policlass.model.entity.AuthenticableUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.poli.policlass.model.entity.User;
+import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-	Optional<User> findByEmail(String email);
+public interface UserRepository<T extends AuthenticableUser> extends JpaRepository<T, Long> {
+	Optional<T> findByEmail(String email);
 }

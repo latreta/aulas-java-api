@@ -2,47 +2,27 @@ package com.poli.policlass.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.common.Endereco;
 import com.poli.policlass.model.entity.common.GENDER;
 import com.poli.policlass.model.entity.common.TelefonePrimario;
 import com.poli.policlass.model.entity.common.TelefoneSecundario;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User implements UserDetails {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Table(name="users")
+@DiscriminatorValue(value="User")
+public class User extends AuthenticableUser {
+
 	@NotNull
 	private String name;
 	@NotNull
 	private String lastName;
 	@Enumerated(value = EnumType.STRING)
 	private GENDER sexo;
-	private String email;
-	@NotNull
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	private String password;
-	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
-	private LocalDate birthdate;
-	@Column(name = "activated")
-	private boolean isActivated;
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "profile_id"))
-	private List<Profile> profiles = new ArrayList<>();
+
 	@Embedded
 	private Endereco endereco;
 	@Embedded
@@ -50,50 +30,10 @@ public class User implements UserDetails {
 	@Embedded
 	private TelefoneSecundario secundario;
 
-	public User() {
-
-	}
-
-	public User(Long id, String name, String email, String password, LocalDate birthdate, boolean status) {
-		this.id = id;
-		this.name = name;
-		this.birthdate = birthdate;
-		this.email = email;
-		this.password = password;
-		this.isActivated = status;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int isActivated() {
-		return isActivated ? 1 : 0;
-	}
-
-	public void setActivated(boolean isActivated) {
-		this.isActivated = isActivated;
-	}
-
-	public GENDER getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(GENDER sexo) {
-		this.sexo = sexo;
-	}
-
-	public List<Profile> getProfiles() {
-		return profiles;
-	}
-
-	public void setProfiles(List<Profile> profiles) {
-		this.profiles = profiles;
-	}
+	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
+	private LocalDate birthdate;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 
 	public String getName() {
 		return name;
@@ -111,64 +51,12 @@ public class User implements UserDetails {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public GENDER getSexo() {
+		return sexo;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Override
-	@JsonIgnore
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = new BCryptPasswordEncoder().encode(password);
-	}
-
-	public LocalDate getBirthdate() {
-		return birthdate;
-	}
-
-	public void setBirthdate(LocalDate birthdate) {
-		this.birthdate = birthdate;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.profiles;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return this.isActivated;
-	}
-
-	public UserDTO generateDTO() {
-		return null;
+	public void setSexo(GENDER sexo) {
+		this.sexo = sexo;
 	}
 
 	public Endereco getEndereco() {
@@ -193,5 +81,29 @@ public class User implements UserDetails {
 
 	public void setSecundario(TelefoneSecundario secundario) {
 		this.secundario = secundario;
+	}
+
+	public LocalDate getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(LocalDate birthdate) {
+		this.birthdate = birthdate;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 }
