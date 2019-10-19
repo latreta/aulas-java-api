@@ -4,7 +4,6 @@ import com.poli.policlass.event.RecursoCriadoEvent;
 import com.poli.policlass.model.dto.UserDTO;
 import com.poli.policlass.model.entity.User;
 import com.poli.policlass.model.form.AtualizarUsuarioForm;
-import com.poli.policlass.repository.UserRepository;
 import com.poli.policlass.service.SignupService;
 import com.poli.policlass.service.TokenService;
 import com.poli.policlass.service.UserService;
@@ -15,13 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-	@Autowired
-	private UserRepository userRepository;
 	@Autowired
 	private UserService userService;
 
@@ -51,6 +49,11 @@ public class UserController {
 	public ResponseEntity<User> detalhar(@PathVariable Long id) {
 		User salvo = userService.buscarPorID(id);
 		return ResponseEntity.ok().body(salvo);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<User>> listarTodos(){
+		return ResponseEntity.ok().body(userService.buscarTodos());
 	}
 
 	@GetMapping("/token/{token}")
